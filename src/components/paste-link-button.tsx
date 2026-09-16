@@ -28,8 +28,8 @@ export function PasteLinkButton({
     };
 
     return (
-      <div className="flex flex-col gap-1.5">
-        <div className="flex items-center gap-1.5">
+      <div className="flex w-full flex-col gap-1.5 sm:w-auto">
+        <div className="flex w-full flex-wrap items-center gap-1.5">
           <input
             autoFocus
             type="url"
@@ -45,7 +45,7 @@ export function PasteLinkButton({
               }
             }}
             placeholder="https://..."
-            className="w-52 rounded-full border border-slate-200 px-3 py-1.5 text-xs outline-none focus:border-accent focus:ring-1 focus:ring-accent-light"
+            className="min-w-0 flex-1 rounded-full border border-slate-200 px-3 py-1.5 text-xs outline-none focus:border-accent focus:ring-1 focus:ring-accent-light sm:w-52 sm:flex-none"
           />
           <button
             type="button"

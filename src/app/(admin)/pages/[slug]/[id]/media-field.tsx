@@ -40,7 +40,7 @@ export function MediaField({
   return (
     <div className="space-y-2">
       {value ? (
-        <div className="flex items-start gap-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
           {isVideoUrl(value) ? (
             <video
               src={value}
@@ -48,17 +48,17 @@ export function MediaField({
               loop
               autoPlay
               playsInline
-              className="h-28 w-48 shrink-0 rounded-lg border border-slate-200 object-cover bg-slate-50"
+              className="h-40 w-full shrink-0 rounded-lg border border-slate-200 object-cover bg-slate-50 sm:h-28 sm:w-48"
             />
           ) : (
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={value}
               alt=""
-              className="h-28 w-48 shrink-0 rounded-lg border border-slate-200 object-cover bg-slate-50"
+              className="h-40 w-full shrink-0 rounded-lg border border-slate-200 object-cover bg-slate-50 sm:h-28 sm:w-48"
             />
           )}
-          <div className="flex flex-col gap-2">
+          <div className="flex min-w-0 flex-col gap-2">
             <p className="text-xs text-slate-400">
               Currently used {isVideoUrl(value) ? "video" : "image"}
             </p>

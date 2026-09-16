@@ -32,7 +32,7 @@ export function LogoField({
   }
 
   return (
-    <div className="flex items-center gap-4">
+    <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
       <div className="grid size-16 shrink-0 place-items-center overflow-hidden rounded-xl border border-slate-200 bg-slate-50">
         {value ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -41,7 +41,7 @@ export function LogoField({
           <ImageOff className="size-5 text-slate-300" />
         )}
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex min-w-0 flex-col gap-2">
         <div className="flex flex-wrap gap-2">
           <button
             type="button"
