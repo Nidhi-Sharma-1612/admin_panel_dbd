@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import { ImageOff, Trash2, Upload } from "lucide-react";
 import { uploadLogoAction } from "./actions";
+import { PasteLinkButton } from "@/components/paste-link-button";
 
 export function LogoField({
   value,
@@ -41,15 +42,17 @@ export function LogoField({
         )}
       </div>
       <div className="flex flex-col gap-2">
-        <div className="flex gap-2">
+        <div className="flex flex-wrap gap-2">
           <button
             type="button"
             onClick={() => inputRef.current?.click()}
             disabled={pending}
             className="flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 hover:bg-slate-50 disabled:opacity-60"
           >
-            <Upload className="size-3.5" /> {pending ? "Uploading..." : value ? "Replace" : "Upload logo"}
+            <Upload className="size-3.5" />{" "}
+            {pending ? "Uploading..." : value ? "Upload from device" : "Upload logo"}
           </button>
+          <PasteLinkButton onSubmit={onChange} />
           {value && (
             <button
               type="button"
