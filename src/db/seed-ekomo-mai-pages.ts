@@ -139,44 +139,6 @@ async function main() {
       content: {
         eyebrow: "Guest Stories",
         heading: "What guests are saying",
-        items: [
-          {
-            quote:
-              "The oceanfront view from the lanai alone was worth the trip. Communication with Louis & Kristine was fast and easy the whole way through.",
-            author: "Sarah Mitchell",
-            location: "Seattle, WA",
-          },
-          {
-            quote:
-              "Everything was spotless and exactly as pictured. Check-in was seamless and the beach gear in the closet was such a nice touch.",
-            author: "James Whitfield",
-            location: "Denver, CO",
-          },
-          {
-            quote:
-              "Felt like staying with friends who happen to know all the best spots on the island. We're already planning our next stay.",
-            author: "Priya Nair",
-            location: "Austin, TX",
-          },
-          {
-            quote:
-              "Waking up to that sunrise every morning never got old. The condo had everything we needed and then some.",
-            author: "Emily Carter",
-            location: "Portland, OR",
-          },
-          {
-            quote:
-              "Booking direct made everything so much simpler than an OTA. Pricing was upfront with zero surprise fees at checkout.",
-            author: "Marcus Reyes",
-            location: "Chicago, IL",
-          },
-          {
-            quote:
-              "We had a small maintenance question and got a reply within minutes. That kind of responsiveness is rare these days.",
-            author: "Hannah Bergström",
-            location: "Minneapolis, MN",
-          },
-        ],
       },
     },
     {
@@ -198,6 +160,12 @@ async function main() {
         heroImage: url("paddleboard-sunset.jpg"),
         founderImage: url("founders.jpeg"),
         reefImage: url("snorkeling-reef.jpg"),
+        highlightLabels: [
+          "Sunrise on Haleakala",
+          "World-Class Snorkeling",
+          "Surfing & Paddleboarding",
+          "The Road to Hana",
+        ],
       },
     },
     {
@@ -332,6 +300,34 @@ async function main() {
             body: "Questions about these terms? Email us at pahiatrinh@gmail.com.",
           },
         ],
+      },
+    },
+    {
+      siteId: site.id,
+      pageSlug: "global",
+      sectionKey: "propertyBooking",
+      order: 0,
+      content: {
+        trustBadge1: "Superhost Rated",
+        trustBadge2: "Book Direct, No Fees",
+      },
+    },
+    {
+      siteId: site.id,
+      pageSlug: "booking-success",
+      sectionKey: "content",
+      order: 0,
+      content: {
+        confirmedHeading: "Booking confirmed!",
+        pendingHeading: "Payment received!",
+        confirmedSuffix:
+          " is booked and your dates are reserved. We can't wait to welcome you.",
+        pendingSuffix:
+          " is being finalized on our end — we'll confirm your exact dates by email within 24 hours.",
+        failedHeading: "Payment not completed",
+        failedBody:
+          "We couldn't confirm this payment. If you believe you were charged, please contact us and we'll sort it out right away.",
+        ctaLabel: "Browse more properties",
       },
     },
   ]);
