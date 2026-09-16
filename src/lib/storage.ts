@@ -1,4 +1,9 @@
-import { S3Client, PutObjectCommand, DeleteObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  PutObjectCommand,
+  DeleteObjectCommand,
+  GetObjectCommand,
+} from "@aws-sdk/client-s3";
 
 function getEnv(name: string) {
   const value = process.env[name];
@@ -40,6 +45,26 @@ export async function uploadFile(params: {
 
   const publicBase = getEnv("S3_PUBLIC_URL_BASE").replace(/\/$/, "");
   return `${publicBase}/${params.key}`;
+}
+
+// Fetches an object directly from S3/MinIO — used by the /api/media proxy
+// route so the public frontend and browsers only ever need to reach the
+// admin panel's own (already-HTTPS) domain, never MinIO's internal endpoint.
+export async function getObject(key: string): Promise<{
+  body: ReadableStream;
+  contentType: string | null;
+  contentLength: number | null;
+}> {
+  const bucket = getEnv("S3_BUCKET");
+  const result = await getClient().send(new GetObjectCommand({ Bucket: bucket, Key: key }));
+
+  if (!result.Body) throw new Error("Object has no body");
+
+  return {
+    body: result.Body.transformToWebStream(),
+    contentType: result.ContentType ?? null,
+    contentLength: result.ContentLength ?? null,
+  };
 }
 
 export async function deleteFile(key: string): Promise<void> {
