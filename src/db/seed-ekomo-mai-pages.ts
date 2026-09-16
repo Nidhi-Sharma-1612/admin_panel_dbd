@@ -305,8 +305,29 @@ async function main() {
     {
       siteId: site.id,
       pageSlug: "global",
-      sectionKey: "propertyBooking",
+      sectionKey: "navbar",
       order: 0,
+      content: {
+        navLinks: ["Home", "Properties", "About", "Contact"],
+        ctaLabel: "Book Now",
+      },
+    },
+    {
+      siteId: site.id,
+      pageSlug: "global",
+      sectionKey: "footer",
+      order: 1,
+      content: {
+        exploreLinks: ["Home", "Properties", "About Us", "Contact"],
+        privacyLabel: "Privacy Policy",
+        termsLabel: "Terms & Conditions",
+      },
+    },
+    {
+      siteId: site.id,
+      pageSlug: "global",
+      sectionKey: "propertyBooking",
+      order: 2,
       content: {
         trustBadge1: "Superhost Rated",
         trustBadge2: "Book Direct, No Fees",
