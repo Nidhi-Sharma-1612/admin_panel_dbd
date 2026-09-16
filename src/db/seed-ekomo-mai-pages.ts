@@ -3,9 +3,13 @@ import { eq } from "drizzle-orm";
 import { db } from "./index";
 import { sites, pageSections } from "./schema";
 
+const M = "https://admin.weblaucher.com/api/media/sites";
+
 async function main() {
   const [site] = await db.select().from(sites).where(eq(sites.slug, "louise")).limit(1);
   if (!site) throw new Error("Site 'louise' not found — run db:seed first.");
+
+  const url = (file: string) => `${M}/${site.id}/seed/${file}`;
 
   await db.delete(pageSections).where(eq(pageSections.siteId, site.id));
 
@@ -20,6 +24,8 @@ async function main() {
         heading: "Your Gateway to Maui's Paradise",
         description:
           "Handpicked oceanfront condos in Lahaina & Kaanapali, hosted with real Aloha spirit — and the front-row sunsets to prove it.",
+        heroImage: url("hero-beach-sunset.jpg"),
+        heroVideo: url("hero.mp4"),
       },
     },
     {
@@ -45,6 +51,38 @@ async function main() {
         heading: "Hospitality that feels like Aloha",
         description:
           "Every stay is backed by the same standards we'd want for our own family — because for us, this island is personal.",
+        items: [
+          {
+            title: "Hassle-Free Check-In",
+            description:
+              "Door codes and arrival instructions sent well ahead of your trip, so you can walk straight in and start relaxing.",
+          },
+          {
+            title: "Impeccable Cleanliness",
+            description:
+              "Professional cleaners with 3+ years of experience, backed by supervisor inspections before every check-in.",
+          },
+          {
+            title: "Prompt Maintenance Response",
+            description:
+              "A direct phone and text line to us, with fast troubleshooting if anything needs attention during your stay.",
+          },
+          {
+            title: "Transparent Pricing",
+            description:
+              "Nightly rate, management fee, and Hawaii taxes only — no surprise charges added at checkout.",
+          },
+          {
+            title: "Fast Communication",
+            description:
+              "Held to Airbnb Superhost and VRBO Premier Host standards, we typically respond within the hour.",
+          },
+          {
+            title: "Fully Stocked Condo",
+            description:
+              "Equipped kitchens, L'Occitane toiletries, beach gear, and pool towels waiting for you on arrival.",
+          },
+        ],
       },
     },
     {
@@ -60,6 +98,7 @@ async function main() {
         paragraph2:
           "We built LahainaOceanfrontRentals to share that feeling with every guest who stays with us — real Aloha spirit, from booking to check-out.",
         linkLabel: "Read our full story",
+        founderImage: url("founders.jpeg"),
       },
     },
     {
@@ -72,6 +111,12 @@ async function main() {
         heading: "More than just a place to stay",
         description:
           "Every condo puts you minutes from the beaches, reefs, and sunsets that make Maui unlike anywhere else.",
+        items: [
+          { label: "Days on the Sand", image: url("beach-palms-sailboat.jpg") },
+          { label: "Reef Diving & Snorkeling", image: url("snorkeling-reef.jpg") },
+          { label: "Paddleboarding at Sunset", image: url("paddleboard-sunset.jpg") },
+          { label: "Sunrise Beach Walks", image: url("beach-birds-sunrise.jpg") },
+        ],
       },
     },
     {
@@ -83,6 +128,55 @@ async function main() {
         eyebrow: "Start Planning",
         heading: "Ready to feel the Aloha spirit?",
         description: "Reach out and we'll help you find the right oceanfront condo for your Maui getaway.",
+        backgroundImage: url("beach-birds-sunrise.jpg"),
+      },
+    },
+    {
+      siteId: site.id,
+      pageSlug: "home",
+      sectionKey: "testimonials",
+      order: 6,
+      content: {
+        eyebrow: "Guest Stories",
+        heading: "What guests are saying",
+        items: [
+          {
+            quote:
+              "The oceanfront view from the lanai alone was worth the trip. Communication with Louis & Kristine was fast and easy the whole way through.",
+            author: "Sarah Mitchell",
+            location: "Seattle, WA",
+          },
+          {
+            quote:
+              "Everything was spotless and exactly as pictured. Check-in was seamless and the beach gear in the closet was such a nice touch.",
+            author: "James Whitfield",
+            location: "Denver, CO",
+          },
+          {
+            quote:
+              "Felt like staying with friends who happen to know all the best spots on the island. We're already planning our next stay.",
+            author: "Priya Nair",
+            location: "Austin, TX",
+          },
+          {
+            quote:
+              "Waking up to that sunrise every morning never got old. The condo had everything we needed and then some.",
+            author: "Emily Carter",
+            location: "Portland, OR",
+          },
+          {
+            quote:
+              "Booking direct made everything so much simpler than an OTA. Pricing was upfront with zero surprise fees at checkout.",
+            author: "Marcus Reyes",
+            location: "Chicago, IL",
+          },
+          {
+            quote:
+              "We had a small maintenance question and got a reply within minutes. That kind of responsiveness is rare these days.",
+            author: "Hannah Bergström",
+            location: "Minneapolis, MN",
+          },
+        ],
       },
     },
     {
@@ -101,6 +195,9 @@ async function main() {
           "And despite all it offers, Maui never feels too crowded — it's a genuine sanctuary for reconnecting with nature. Visit between December and April and you might even catch humpback whales breaching just offshore.",
         paragraph3:
           "We started LahainaOceanfrontRentals to share that feeling with every guest who stays with us — hosting each condo the way we'd want to be hosted ourselves.",
+        heroImage: url("paddleboard-sunset.jpg"),
+        founderImage: url("founders.jpeg"),
+        reefImage: url("snorkeling-reef.jpg"),
       },
     },
     {
@@ -114,6 +211,7 @@ async function main() {
         description:
           "From honeymoon studios to resort-style condos with room for the family — each one hosted with real Aloha spirit.",
         regionText: "Oceanfront condos in Lahaina & Kaanapali, West Maui",
+        heroImage: url("beach-palms-sailboat.jpg"),
       },
     },
     {
@@ -129,6 +227,7 @@ async function main() {
         formSubtext: "Fill out the form below and we'll get back to you shortly.",
         trustNote:
           "Held to Airbnb Superhost and VRBO Premier Host standards — expect a reply within the hour during normal waking hours in Hawaii.",
+        heroImage: url("poolside-dusk.jpg"),
       },
     },
     {
@@ -138,6 +237,7 @@ async function main() {
       order: 0,
       content: {
         lastUpdated: "Last updated September 2026",
+        heroImage: url("snorkeling-reef.jpg"),
         sections: [
           {
             heading: "Introduction",
@@ -189,6 +289,7 @@ async function main() {
       order: 0,
       content: {
         lastUpdated: "Last updated September 2026",
+        heroImage: url("beach-birds-sunrise.jpg"),
         sections: [
           {
             heading: "Acceptance of Terms",
