@@ -4,6 +4,7 @@ import { useActionState, useState } from "react";
 import { Building2, Contact, PanelBottom, Share2 } from "lucide-react";
 import { updateSettingsAction, type SettingsState } from "./actions";
 import { LogoField } from "./logo-field";
+import { useSubmitToast } from "@/components/toast";
 
 type Settings = {
   siteName?: string | null;
@@ -43,6 +44,7 @@ function SectionHeading({
 
 export function SettingsForm({ settings }: { settings: Settings }) {
   const [state, formAction, pending] = useActionState(updateSettingsAction, initialState);
+  useSubmitToast(pending, state.error, "Settings saved.");
   const social = settings?.socialLinks ?? {};
   const [siteName, setSiteName] = useState(settings?.siteName ?? "");
   const [logoUrl, setLogoUrl] = useState(settings?.logoUrl ?? "");

@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { ChevronDown, HelpCircle, Settings2 } from "lucide-react";
 import type { FaqState } from "./actions";
+import { useSubmitToast } from "@/components/toast";
 
 type Faq = { question: string; answer: string; order?: number | null } | undefined;
 
@@ -20,6 +21,7 @@ export function FaqForm({
   submitLabel: string;
 }) {
   const [state, formAction, pending] = useActionState(action, {});
+  useSubmitToast(pending, state.error, faq ? "FAQ updated." : "FAQ created.");
   const [question, setQuestion] = useState(faq?.question ?? "");
   const [answer, setAnswer] = useState(faq?.answer ?? "");
   const [advanced, setAdvanced] = useState(false);

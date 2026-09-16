@@ -3,6 +3,7 @@
 import { useActionState, useMemo, useState } from "react";
 import { Eye, EyeOff, KeyRound, Check, X } from "lucide-react";
 import { updatePasswordAction, type PasswordState } from "./actions";
+import { useSubmitToast } from "@/components/toast";
 
 const initialState: PasswordState = {};
 const field =
@@ -49,6 +50,7 @@ function PasswordInput({
 
 export function PasswordForm() {
   const [state, formAction, pending] = useActionState(updatePasswordAction, initialState);
+  useSubmitToast(pending, state.error, "Password updated.");
   const [currentPassword, setCurrentPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -115,7 +117,6 @@ export function PasswordForm() {
       )}
 
       {state.error && <p className="text-sm text-red-600">{state.error}</p>}
-      {state.success && <p className="text-sm text-emerald-600">Password updated.</p>}
 
       <button
         type="submit"

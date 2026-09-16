@@ -3,6 +3,7 @@
 import { useActionState, useMemo, useState } from "react";
 import { Eye, EyeOff, UserPlus, Check, X } from "lucide-react";
 import type { UserFormState } from "./actions";
+import { useSubmitToast } from "@/components/toast";
 
 type SiteOption = { id: string; name: string };
 
@@ -66,6 +67,7 @@ export function UserForm({
   submitLabel: string;
 }) {
   const [state, formAction, pending] = useActionState(action, {});
+  useSubmitToast(pending, state.error, user ? "User updated." : "User created.");
   const [name, setName] = useState(user?.name ?? "");
   const [email, setEmail] = useState(user?.email ?? "");
   const [password, setPassword] = useState("");

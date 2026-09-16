@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Menu } from "lucide-react";
 import { Sidebar } from "@/components/sidebar";
 import { Logo } from "@/components/logo";
+import { ToastProvider } from "@/components/toast";
 import type { UserRole } from "@/lib/auth";
 
 type SiteOption = { id: string; slug: string; name: string };
@@ -26,6 +27,7 @@ export function AdminShell({
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
+    <ToastProvider>
     <div className="flex h-screen overflow-hidden">
       {mobileOpen && (
         <div
@@ -65,5 +67,6 @@ export function AdminShell({
         <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">{children}</main>
       </div>
     </div>
+    </ToastProvider>
   );
 }

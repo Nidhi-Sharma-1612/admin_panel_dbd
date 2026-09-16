@@ -7,6 +7,7 @@ import { MediaField } from "./media-field";
 import { ListField } from "./list-field";
 import { ObjectListField } from "./object-list-field";
 import { humanizeKey } from "@/lib/humanize";
+import { useSubmitToast } from "@/components/toast";
 
 type FieldKind = "text" | "textarea" | "list" | "objectList" | "json" | "media";
 
@@ -98,6 +99,7 @@ export function SectionEditor({
   const [newKey, setNewKey] = useState("");
   const [newKind, setNewKind] = useState<FieldKind>("text");
   const [state, formAction, pending] = useActionState(action, {});
+  useSubmitToast(pending, state.error, "Changes saved.");
 
   const contentJson = useMemo(() => JSON.stringify(fieldsToObject(fields)), [fields]);
 
