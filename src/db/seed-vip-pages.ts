@@ -7,6 +7,16 @@ async function main() {
   const [site] = await db.select().from(sites).where(eq(sites.slug, "vip")).limit(1);
   if (!site) throw new Error("Site 'vip' not found — run db:seed first.");
 
+  // These four images/video were originally seeded as the frontend's own
+  // local /public paths (e.g. "/images/cottage1-b.jpg"). That renders fine
+  // on the live site (Next serves them as static files there) but is
+  // broken in the admin's own image/video preview, since "/images/..."
+  // resolves against admin.weblaucher.com, not the vip frontend — so the
+  // preview always showed empty. Uploaded once to this site's media store
+  // and referenced here by their hosted URL instead, matching every other
+  // seeded media field in this project.
+  const M = `https://admin.weblaucher.com/api/media/sites/${site.id}/seed`;
+
   // The default page set from db:seed ("about", "terms") doesn't match this
   // frontend's actual routes, so the page list is replaced with exactly the
   // pages this frontend renders. Listings themselves (and reviews, amenities,
@@ -39,8 +49,8 @@ async function main() {
         heading: "Furnished homes for every kind of stay.",
         description:
           "Vacation trip, work crew, or a family between homes — book straight with us and skip the third-party markup.",
-        posterImage: "/images/cottage1-b.jpg",
-        video: "/videos/hero-loop.mp4",
+        posterImage: `${M}/cottage1-b.jpg`,
+        video: `${M}/hero-loop.mp4`,
       },
     },
     {
@@ -57,7 +67,7 @@ async function main() {
         paragraph3Prefix: "Questions before you book? Eddie reads every message at",
         hostName: "Eddie",
         hostTitle: "Your host",
-        image: "/images/cottage2-a.jpg",
+        image: `${M}/cottage2-a.jpg`,
         ratingLabel: "avg. guest rating",
         homesLabel: "homes to choose from",
       },
@@ -122,7 +132,7 @@ async function main() {
           "Browse our homes, pick your dates, and let Eddie take it from there — no call centers, no middlemen, just the VIP treatment every guest deserves.",
         primaryLabel: "Browse our homes",
         secondaryLabel: "Contact",
-        image: "/images/lucile-e.jpg",
+        image: `${M}/lucile-e.jpg`,
       },
     },
 
