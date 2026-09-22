@@ -196,6 +196,9 @@ async function main() {
         trustNote:
           "Held to Airbnb Superhost and VRBO Premier Host standards — expect a reply within the hour during normal waking hours in Hawaii.",
         heroImage: url("poolside-dusk.jpg"),
+        directContactHeading: "Direct Contact",
+        hostName: "Louis & Kristine Trinh",
+        followAlongHeading: "Follow Along",
       },
     },
     {
