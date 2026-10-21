@@ -2,8 +2,11 @@
 
 import { Plus, Trash2 } from "lucide-react";
 import { humanizeKey } from "@/lib/humanize";
+import { MediaField } from "./media-field";
 
 type ObjectItem = Record<string, string>;
+
+const MEDIA_KEY_PATTERN = /(image|photo|logo|thumbnail|avatar|picture|banner|video|media)/i;
 
 export function ObjectListField({
   items,
@@ -48,7 +51,9 @@ export function ObjectListField({
               <label className="block text-xs font-medium text-slate-500 mb-1">
                 {humanizeKey(key)}
               </label>
-              {(item[key]?.length ?? 0) > 80 ? (
+              {MEDIA_KEY_PATTERN.test(key) ? (
+                <MediaField value={item[key] ?? ""} onChange={(url) => updateItem(i, key, url)} />
+              ) : (item[key]?.length ?? 0) > 80 ? (
                 <textarea
                   rows={3}
                   value={item[key] ?? ""}
