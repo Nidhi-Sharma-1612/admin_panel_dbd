@@ -24,8 +24,8 @@ async function main() {
         heading: "Your Gateway to Maui's Paradise",
         description:
           "Handpicked oceanfront condos in Lahaina & Kaanapali, hosted with real Aloha spirit — and the front-row sunsets to prove it.",
-        heroImage: url("hero-beach-sunset.jpg"),
-        heroVideo: url("hero.mp4"),
+        heroImage: url("home-hero.jpg"),
+        heroVideo: url("home-hero.mp4"),
       },
     },
     {
@@ -112,10 +112,10 @@ async function main() {
         description:
           "Every condo puts you minutes from the beaches, reefs, and sunsets that make Maui unlike anywhere else.",
         items: [
-          { label: "Days on the Sand", image: url("beach-palms-sailboat.jpg") },
-          { label: "Reef Diving & Snorkeling", image: url("snorkeling-reef.jpg") },
-          { label: "Paddleboarding at Sunset", image: url("paddleboard-sunset.jpg") },
-          { label: "Sunrise Beach Walks", image: url("beach-birds-sunrise.jpg") },
+          { label: "Days on the Sand", image: url("explore-days-on-the-sand.jpg") },
+          { label: "Reef Diving & Snorkeling", image: url("explore-reef-diving-snorkeling.jpg") },
+          { label: "Paddleboarding at Sunset", image: url("explore-paddleboarding-sunset.jpg") },
+          { label: "Sunrise Beach Walks", image: url("explore-sunrise-beach-walks.jpg") },
         ],
       },
     },
@@ -128,7 +128,7 @@ async function main() {
         eyebrow: "Start Planning",
         heading: "Ready to feel the Aloha spirit?",
         description: "Reach out and we'll help you find the right oceanfront condo for your Maui getaway.",
-        backgroundImage: url("beach-birds-sunrise.jpg"),
+        backgroundImage: url("home-cta-background.jpg"),
       },
     },
     {
@@ -157,9 +157,9 @@ async function main() {
           "And despite all it offers, Maui never feels too crowded — it's a genuine sanctuary for reconnecting with nature. Visit between December and April and you might even catch humpback whales breaching just offshore.",
         paragraph3:
           "We started LahainaOceanfrontRentals to share that feeling with every guest who stays with us — hosting each condo the way we'd want to be hosted ourselves.",
-        heroImage: url("paddleboard-sunset.jpg"),
+        heroImage: url("about-hero.jpg"),
         founderImage: url("founders.jpeg"),
-        reefImage: url("snorkeling-reef.jpg"),
+        reefImage: url("about-reef.jpg"),
         highlightLabels: [
           "Sunrise on Haleakala",
           "World-Class Snorkeling",
@@ -179,7 +179,7 @@ async function main() {
         description:
           "From honeymoon studios to resort-style condos with room for the family — each one hosted with real Aloha spirit.",
         regionText: "Oceanfront condos in Lahaina & Kaanapali, West Maui",
-        heroImage: url("beach-palms-sailboat.jpg"),
+        heroImage: url("properties-hero.jpg"),
       },
     },
     {
@@ -195,7 +195,7 @@ async function main() {
         formSubtext: "Fill out the form below and we'll get back to you shortly.",
         trustNote:
           "Held to Airbnb Superhost and VRBO Premier Host standards — expect a reply within the hour during normal waking hours in Hawaii.",
-        heroImage: url("poolside-dusk.jpg"),
+        heroImage: url("contact-hero.jpg"),
         directContactHeading: "Direct Contact",
         hostName: "Louis & Kristine Trinh",
         followAlongHeading: "Follow Along",
@@ -260,7 +260,7 @@ async function main() {
       order: 0,
       content: {
         lastUpdated: "Last updated September 2026",
-        heroImage: url("beach-birds-sunrise.jpg"),
+        heroImage: url("terms-hero.jpg"),
         sections: [
           {
             heading: "Acceptance of Terms",
