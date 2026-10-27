@@ -2,8 +2,8 @@
 
 import { useRef, useState } from "react";
 import { ImageOff, Trash2, Upload } from "lucide-react";
-import { uploadSectionImageAction } from "../../actions";
 import { PasteLinkButton } from "@/components/paste-link-button";
+import type { ImageUploadResult } from "@/lib/media-upload";
 
 const VIDEO_EXTENSION_PATTERN = /\.(mp4|webm|mov)(\?.*)?$/i;
 
@@ -14,9 +14,11 @@ function isVideoUrl(url: string): boolean {
 export function MediaField({
   value,
   onChange,
+  onUpload,
 }: {
   value: string;
   onChange: (url: string) => void;
+  onUpload: (formData: FormData) => Promise<ImageUploadResult>;
 }) {
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +30,7 @@ export function MediaField({
     setError(null);
     const formData = new FormData();
     formData.set("file", file);
-    const result = await uploadSectionImageAction(formData);
+    const result = await onUpload(formData);
     setPending(false);
     if (result.error) {
       setError(result.error);

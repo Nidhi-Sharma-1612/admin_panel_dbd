@@ -50,6 +50,13 @@
       "when": 1789484853901,
       "tag": "0006_nifty_punisher",
       "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1793110656743,
+      "tag": "0007_curly_wildside",
+      "breakpoints": true
     }
   ]
 }

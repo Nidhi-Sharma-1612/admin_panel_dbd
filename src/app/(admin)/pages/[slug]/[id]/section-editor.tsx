@@ -2,12 +2,12 @@
 
 import { useActionState, useMemo, useState } from "react";
 import { ChevronDown, Plus, Settings2, Trash2 } from "lucide-react";
-import type { SectionState } from "../../actions";
-import { MediaField } from "./media-field";
+import { uploadSectionImageAction, type SectionState } from "../../actions";
 import { ListField } from "./list-field";
 import { ObjectListField } from "./object-list-field";
 import { humanizeKey } from "@/lib/humanize";
 import { useSubmitToast } from "@/components/toast";
+import { MediaField } from "@/components/media-field";
 
 type FieldKind = "text" | "textarea" | "list" | "objectList" | "json" | "media";
 
@@ -185,6 +185,7 @@ export function SectionEditor({
               {f.kind === "media" && (
                 <MediaField
                   value={f.value}
+                  onUpload={uploadSectionImageAction}
                   onChange={(url) => updateField(f.id, { value: url })}
                 />
               )}

@@ -2,7 +2,8 @@
 
 import { Plus, Trash2 } from "lucide-react";
 import { humanizeKey } from "@/lib/humanize";
-import { MediaField } from "./media-field";
+import { MediaField } from "@/components/media-field";
+import { uploadSectionImageAction } from "../../actions";
 
 type ObjectItem = Record<string, string>;
 
@@ -52,7 +53,11 @@ export function ObjectListField({
                 {humanizeKey(key)}
               </label>
               {MEDIA_KEY_PATTERN.test(key) ? (
-                <MediaField value={item[key] ?? ""} onChange={(url) => updateItem(i, key, url)} />
+                <MediaField
+                  value={item[key] ?? ""}
+                  onUpload={uploadSectionImageAction}
+                  onChange={(url) => updateItem(i, key, url)}
+                />
               ) : (item[key]?.length ?? 0) > 80 ? (
                 <textarea
                   rows={3}

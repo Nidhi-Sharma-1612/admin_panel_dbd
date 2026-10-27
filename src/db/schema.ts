@@ -115,19 +115,33 @@ export const faqs = pgTable("faqs", {
   order: integer("order").notNull().default(0),
 });
 
-export const articles = pgTable("articles", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  siteId: uuid("site_id")
-    .notNull()
-    .references(() => sites.id, { onDelete: "cascade" }),
-  slug: text("slug").notNull(),
-  title: text("title").notNull(),
-  body: text("body").notNull(),
-  coverImage: text("cover_image"),
-  status: text("status").notNull().default("draft"),
-  publishedAt: timestamp("published_at"),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
+export const articles = pgTable(
+  "articles",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    siteId: uuid("site_id")
+      .notNull()
+      .references(() => sites.id, { onDelete: "cascade" }),
+    slug: text("slug").notNull(),
+    title: text("title").notNull(),
+    excerpt: text("excerpt"),
+    // Markdown — rendered on the frontend. Chosen over a rich block editor
+    // (like page_sections' description blocks) because articles are
+    // free-form, admin-authored posts rather than a fixed set of fields.
+    body: text("body").notNull(),
+    coverImage: text("cover_image"),
+    heroImage: text("hero_image"),
+    category: text("category"),
+    // Related cabin slugs, cross-promoted at the end of the post.
+    cabins: json("cabins").$type<string[]>().notNull().default([]),
+    // Old OwnerRez-site URL path, kept only on migrated posts so old links redirect.
+    legacySlug: text("legacy_slug"),
+    status: text("status").notNull().default("draft"),
+    publishedAt: timestamp("published_at"),
+    updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  },
+  (t) => [unique().on(t.siteId, t.slug)],
+);
 
 export const media = pgTable("media", {
   id: uuid("id").primaryKey().defaultRandom(),

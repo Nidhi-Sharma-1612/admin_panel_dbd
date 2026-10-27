@@ -13,6 +13,7 @@ import {
   UserCircle,
   LogOut,
   ChevronDown,
+  Newspaper,
 } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { logoutAction, switchSiteAction } from "@/app/(admin)/actions";
@@ -29,6 +30,7 @@ const PER_SITE_NAV_ITEMS = [
   { href: "/", label: "Overview", icon: LayoutGrid },
   { href: "/faqs", label: "FAQs", icon: HelpCircle },
   { href: "/pages", label: "Pages", icon: Layers },
+  { href: "/blog", label: "Blog", icon: Newspaper },
   { href: "/activity", label: "Activity", icon: History },
   { href: "/settings", label: "Settings", icon: Settings },
   { href: "/account", label: "Account", icon: UserCircle },
