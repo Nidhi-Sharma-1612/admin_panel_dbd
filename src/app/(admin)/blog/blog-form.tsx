@@ -1,11 +1,10 @@
 "use client";
 
 import { useActionState, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
 import { ChevronDown, Newspaper, Settings2 } from "lucide-react";
 import type { ArticleState } from "./actions";
 import { uploadArticleImageAction } from "./actions";
+import { RichTextEditor } from "./rich-text-editor";
 import { useSubmitToast } from "@/components/toast";
 import { MediaField } from "@/components/media-field";
 
@@ -55,7 +54,6 @@ export function BlogForm({
   const [category, setCategory] = useState(article?.category ?? "");
   const [cabins, setCabins] = useState((article?.cabins ?? []).join(", "));
   const [status, setStatus] = useState(article?.status ?? "draft");
-  const [showPreview, setShowPreview] = useState(false);
   const [advanced, setAdvanced] = useState(false);
 
   return (
@@ -117,40 +115,10 @@ export function BlogForm({
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-white p-6 space-y-3">
-          <div className="flex items-center justify-between">
-            <label className={label}>Post content</label>
-            <button
-              type="button"
-              onClick={() => setShowPreview((v) => !v)}
-              className="text-xs font-medium text-accent-dark hover:underline"
-            >
-              {showPreview ? "Edit" : "Preview"}
-            </button>
-          </div>
-          <p className="-mt-2 text-xs text-slate-400">
-            Supports Markdown: ## Heading, **bold**, - bullet list, 1. numbered list, [link](https://…),
-            ![alt](image url).
-          </p>
-          {showPreview ? (
-            <div
-              className="max-w-none space-y-3 rounded-lg border border-slate-200 p-4 text-sm leading-relaxed text-slate-700 [&_a]:text-accent-dark [&_a]:underline [&_h2]:text-base [&_h2]:font-bold [&_h2]:text-slate-900 [&_img]:rounded-lg [&_li]:ml-1 [&_ol]:list-decimal [&_ol]:space-y-1 [&_ol]:pl-5 [&_strong]:font-semibold [&_strong]:text-slate-900 [&_ul]:list-disc [&_ul]:space-y-1 [&_ul]:pl-5"
-            >
-              {body.trim() ? (
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>{body}</ReactMarkdown>
-              ) : (
-                <p className="text-slate-400">Nothing to preview yet.</p>
-              )}
-            </div>
-          ) : (
-            <textarea
-              name="body"
-              required
-              rows={18}
-              value={body}
-              onChange={(e) => setBody(e.target.value)}
-              className={`${field} font-mono text-xs`}
-            />
-          )}
+          <label className={label}>Post content</label>
+          <RichTextEditor initialMarkdown={body} onChange={setBody} onUploadImage={uploadArticleImageAction} />
+          <input type="hidden" name="body" value={body} />
+          {!body.trim() && <p className="text-xs text-red-500">Write something before saving.</p>}
         </div>
 
         {state.error && <p className="text-sm text-red-600">{state.error}</p>}
