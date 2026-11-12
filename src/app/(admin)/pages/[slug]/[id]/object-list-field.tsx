@@ -13,10 +13,12 @@ export function ObjectListField({
   items,
   itemKeys,
   onChange,
+  itemHelp,
 }: {
   items: ObjectItem[];
   itemKeys: string[];
   onChange: (items: ObjectItem[]) => void;
+  itemHelp?: Record<string, string>;
 }) {
   function updateItem(index: number, key: string, value: string) {
     onChange(items.map((it, i) => (i === index ? { ...it, [key]: value } : it)));
@@ -72,6 +74,7 @@ export function ObjectListField({
                   className="w-full rounded-lg border border-slate-200 py-2 px-3 text-sm outline-none focus:border-accent focus:ring-2 focus:ring-accent-light"
                 />
               )}
+              {itemHelp?.[key] && <p className="mt-1 text-xs text-slate-400">{itemHelp[key]}</p>}
             </div>
           ))}
         </div>

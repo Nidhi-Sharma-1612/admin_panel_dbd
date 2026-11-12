@@ -39,7 +39,12 @@ export default async function SectionEditPage({
         }
       />
 
-      <SectionEditor initialContent={section.content ?? {}} action={boundUpdate} />
+      <SectionEditor
+        initialContent={section.content ?? {}}
+        action={boundUpdate}
+        pageSlug={slug}
+        sectionKey={section.sectionKey}
+      />
     </div>
   );
 }

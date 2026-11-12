@@ -8,6 +8,7 @@ import { ObjectListField } from "./object-list-field";
 import { humanizeKey } from "@/lib/humanize";
 import { useSubmitToast } from "@/components/toast";
 import { MediaField } from "@/components/media-field";
+import { getFieldHelp, getItemFieldHelp } from "@/lib/field-help";
 
 type FieldKind = "text" | "textarea" | "list" | "objectList" | "json" | "media";
 
@@ -88,9 +89,13 @@ const inputClass =
 export function SectionEditor({
   initialContent,
   action,
+  pageSlug,
+  sectionKey,
 }: {
   initialContent: Record<string, unknown>;
   action: (state: SectionState, formData: FormData) => Promise<SectionState>;
+  pageSlug?: string;
+  sectionKey?: string;
 }) {
   const [fields, setFields] = useState<FieldRow[]>(() =>
     Object.entries(initialContent).map(([k, v]) => inferField(k, v)),
@@ -138,7 +143,9 @@ export function SectionEditor({
           </p>
         )}
 
-        {fields.map((f) => (
+        {fields.map((f) => {
+          const help = pageSlug && sectionKey ? getFieldHelp(pageSlug, sectionKey, f.key) : undefined;
+          return (
           <div key={f.id} className="flex flex-col gap-1.5 sm:flex-row sm:gap-3 sm:items-start">
             <div className="sm:w-36 sm:shrink-0 sm:pt-2.5">
               <p className="text-sm font-medium text-slate-700 wrap-break-word">
@@ -171,6 +178,15 @@ export function SectionEditor({
                 <ObjectListField
                   items={JSON.parse(f.value || "[]")}
                   itemKeys={f.itemKeys ?? []}
+                  itemHelp={
+                    pageSlug && sectionKey
+                      ? Object.fromEntries(
+                          (f.itemKeys ?? [])
+                            .map((k) => [k, getItemFieldHelp(pageSlug, sectionKey, k)] as const)
+                            .filter((entry): entry is [string, string] => Boolean(entry[1])),
+                        )
+                      : undefined
+                  }
                   onChange={(items) => updateField(f.id, { value: JSON.stringify(items) })}
                 />
               )}
@@ -189,6 +205,7 @@ export function SectionEditor({
                   onChange={(url) => updateField(f.id, { value: url })}
                 />
               )}
+              {help && <p className="mt-1.5 text-xs text-slate-400">{help}</p>}
             </div>
             {advanced && (
               <button
@@ -201,7 +218,8 @@ export function SectionEditor({
               </button>
             )}
           </div>
-        ))}
+          );
+        })}
       </div>
 
       {state.error && <p className="text-sm text-red-600">{state.error}</p>}
